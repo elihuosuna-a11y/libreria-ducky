@@ -1,0 +1,117 @@
+/* ===== Paleta y variables ===== */
+:root {
+    --color-primario: #b8860b;     /* dorado universidad */
+    --color-secundario: #1d4f8a;   /* azul boton */
+    --color-fondo: #f5f5f5;
+    --color-texto: #333;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: var(--color-fondo);
+    color: var(--color-texto);
+    margin: 0;
+}
+
+/* ===== Pantalla de Autenticacion (E1) ===== */
+.auth-header {
+    background: var(--color-primario);
+    height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.btn-cerrar {
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-cerrar:hover { color: #fff8e7; }
+
+.auth-main {
+    max-width: 480px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.auth-titulo {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.auth-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background: var(--color-secundario);
+    border-color: var(--color-secundario);
+}
+
+.btn-primary:hover {
+    background: #163d6b;
+    border-color: #163d6b;
+}
+
+/* ===== Pantalla de Catalogo (E2) ===== */
+.cat-header {
+    background: var(--color-primario);
+    padding: 1rem 1.5rem;
+}
+
+.cat-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cat-search-pill {
+    background: white;
+    border-radius: 30px;
+    padding: 0.5rem 1.25rem;
+    flex: 1;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.cat-main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cat-tabla thead {
+    background: var(--color-secundario);
+    color: white;
+}
+
+.cat-tabla thead th {
+    font-weight: 500;
+    border: none;
+}
+
+.badge-genero {
+    background: #f4c275;
+    color: #5a3a00;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.pagination .page-link {
+    color: var(--color-secundario);
+}
+
+.pagination .active .page-link {
+    background: var(--color-secundario);
+    border-color: var(--color-secundario);
+}

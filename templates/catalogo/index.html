@@ -1,0 +1,123 @@
+{% include 'partials/header.html' %}
+
+<header class="cat-header">
+    <div class="cat-header-bar">
+        <div class="cat-search-pill">
+            <span>☰</span>
+            <span class="text-muted">Consulta libros</span>
+        </div>
+        <a href="{{ url_for('auth.cerrar_sesion') }}" class="btn-cerrar" title="Cerrar sesion (T19)">×</a>
+    </div>
+</header>
+
+<main class="cat-main container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-start mb-2">
+        <div>
+            <h1 class="h2 fw-bold mb-1">Libros</h1>
+            <p class="text-muted small mb-0">
+                Pestana para administrar los libros que se encuentran en el sistema
+            </p>
+        </div>
+        <!-- T08 (Proyecto Final): por ahora boton sin funcionalidad -->
+        <button class="btn btn-primary" disabled title="Disponible en Proyecto Final">
+            Nuevo Libro +
+        </button>
+    </div>
+
+    <!-- T06: Filtro por Titulo / Autor / ISBN -->
+    <form class="row g-2 my-3" method="GET" action="{{ url_for('catalogo.mostrar_catalogo') }}">
+        <div class="col-md-3">
+            <select class="form-select" name="campo">
+                <option value="todos"  {% if campo == 'todos'  %}selected{% endif %}>Todos los campos</option>
+                <option value="titulo" {% if campo == 'titulo' %}selected{% endif %}>Titulo</option>
+                <option value="autor"  {% if campo == 'autor'  %}selected{% endif %}>Autor</option>
+                <option value="isbn"   {% if campo == 'isbn'   %}selected{% endif %}>ISBN</option>
+            </select>
+        </div>
+        <div class="col-md-7">
+            <input type="text" class="form-control" name="filtro"
+                   value="{{ filtro }}" placeholder="Buscar libro...">
+        </div>
+        <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-secondary">Buscar</button>
+        </div>
+    </form>
+
+    <div class="card shadow-sm">
+        <table class="table table-hover mb-0 cat-tabla">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Autor(es)</th>
+                    <th>ISBN</th>
+                    <th>Genero</th>
+                    <th class="text-center">Copias</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if libros|length == 0 %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            No se encontraron libros con los criterios indicados.
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for libro in libros %}
+                        <tr>
+                            <td>{{ libro.Titulo }}</td>
+                            <td>{{ libro.Autor }}</td>
+                            <td>{{ libro.ISBN }}</td>
+                            <td><span class="badge-genero">{{ libro.Categoria or '—' }}</span></td>
+                            <td class="text-center">{{ libro.NumeroCopias }}</td>
+                            <td class="text-center">
+                                <!-- T09, T10, T11 (Proyecto Final): botones sin funcionalidad por ahora -->
+                                <button class="btn btn-sm btn-primary" disabled title="Disponible en Proyecto Final">
+                                    Ver detalles
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" disabled title="Disponible en Proyecto Final">✎</button>
+                                <button class="btn btn-sm btn-outline-danger"   disabled title="Disponible en Proyecto Final">🗑</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- T07: Paginacion -->
+    {% if total_paginas > 1 %}
+        <nav class="d-flex justify-content-center mt-3">
+            <ul class="pagination">
+                <li class="page-item {% if pagina_actual == 1 %}disabled{% endif %}">
+                    <a class="page-link"
+                       href="?filtro={{ filtro }}&campo={{ campo }}&pagina={{ pagina_actual - 1 }}">
+                        ← Anterior
+                    </a>
+                </li>
+
+                {% for p in range(1, total_paginas + 1) %}
+                    <li class="page-item {% if p == pagina_actual %}active{% endif %}">
+                        <a class="page-link"
+                           href="?filtro={{ filtro }}&campo={{ campo }}&pagina={{ p }}">{{ p }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="page-item {% if pagina_actual == total_paginas %}disabled{% endif %}">
+                    <a class="page-link"
+                       href="?filtro={{ filtro }}&campo={{ campo }}&pagina={{ pagina_actual + 1 }}">
+                        Siguiente →
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    {% endif %}
+
+    <p class="text-muted small text-center mt-2">
+        Total de libros: {{ total }}
+    </p>
+
+</main>
+
+{% include 'partials/footer.html' %}

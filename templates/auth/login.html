@@ -1,0 +1,42 @@
+{% include 'partials/header.html' %}
+
+<div class="auth-wrapper">
+    <header class="auth-header">
+        <a href="{{ url_for('auth.cerrar_sesion') }}" class="btn-cerrar" title="Salir del sistema (T05)">×</a>
+    </header>
+
+    <main class="auth-main">
+        <h1 class="auth-titulo">Libreria de la Universidad Ducky</h1>
+
+        <div class="card auth-card">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-4">Iniciar sesion</h2>
+
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">{{ error }}</div>
+                {% endif %}
+
+                <form action="{{ url_for('auth.procesar_login') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario (Matricula/Nomina)</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario"
+                               value="{{ datos.usuario or '' }}"
+                               placeholder="Ingresa la informacion" autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contrasena</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena"
+                               placeholder="Ingresa la informacion">
+                    </div>
+
+                    <a href="#" class="small text-muted d-block mb-3">¿Olvidaste tu contrasena?</a>
+
+                    <button type="submit" class="btn btn-primary w-100">Iniciar sesion</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+{% include 'partials/footer.html' %}
