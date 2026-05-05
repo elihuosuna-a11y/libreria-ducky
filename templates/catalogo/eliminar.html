@@ -1,0 +1,46 @@
+{% include 'partials/header.html' %}
+
+<header class="cat-header">
+    <div class="cat-header-bar">
+        <div class="cat-search-pill">
+            <span>☰</span>
+            <span class="text-muted">Consulta libros</span>
+        </div>
+    </div>
+</header>
+
+<!-- Overlay oscuro de fondo (simula el modal sobre el catalogo) -->
+<div class="overlay-modal">
+
+    <div class="modal-confirmacion card shadow-lg">
+        <div class="card-body p-4 text-center">
+
+            <h2 class="h5 mb-3">
+                ¿Estás seguro(a) que quieres eliminar el libro<br>
+                <strong>"{{ libro.Titulo }}"</strong>?
+            </h2>
+
+            <p class="text-muted small mb-4">
+                Esta acción no se puede deshacer.
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+
+                <!-- T21: Baja exitosa (confirmar eliminacion) -->
+                <form action="{{ url_for('catalogo.procesar_eliminar', isbn=libro.ISBN) }}"
+                      method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger px-4">Eliminar</button>
+                </form>
+
+                <!-- T22: Cancelar eliminacion -> regresa a E2 -->
+                <a href="{{ url_for('catalogo.mostrar_catalogo') }}"
+                   class="btn btn-primary px-4">Cancelar</a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% include 'partials/footer.html' %}

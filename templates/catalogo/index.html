@@ -19,10 +19,10 @@
                 Pestana para administrar los libros que se encuentran en el sistema
             </p>
         </div>
-        <!-- T08 (Proyecto Final): por ahora boton sin funcionalidad -->
-        <button class="btn btn-primary" disabled title="Disponible en Proyecto Final">
+        <!-- T08: Nuevo Libro -> E3 -->
+        <a href="{{ url_for('catalogo.mostrar_nuevo') }}" class="btn btn-primary">
             Nuevo Libro +
-        </button>
+        </a>
     </div>
 
     <!-- T06: Filtro por Titulo / Autor / ISBN -->
@@ -72,12 +72,17 @@
                             <td><span class="badge-genero">{{ libro.Categoria or '—' }}</span></td>
                             <td class="text-center">{{ libro.NumeroCopias }}</td>
                             <td class="text-center">
-                                <!-- T09, T10, T11 (Proyecto Final): botones sin funcionalidad por ahora -->
-                                <button class="btn btn-sm btn-primary" disabled title="Disponible en Proyecto Final">
+                                <!-- T09: Ver detalles -> E4 -->
+                                <a href="{{ url_for('catalogo.mostrar_detalles', isbn=libro.ISBN) }}"
+                                   class="btn btn-sm btn-primary">
                                     Ver detalles
-                                </button>
-                                <button class="btn btn-sm btn-outline-secondary" disabled title="Disponible en Proyecto Final">✎</button>
-                                <button class="btn btn-sm btn-outline-danger"   disabled title="Disponible en Proyecto Final">🗑</button>
+                                </a>
+                                <!-- T10: Editar -> E5 -->
+                                <a href="{{ url_for('catalogo.mostrar_editar', isbn=libro.ISBN) }}"
+                                   class="btn btn-sm btn-outline-secondary">✎</a>
+                                <!-- T11: Eliminar -> E6 -->
+                                <a href="{{ url_for('catalogo.mostrar_eliminar', isbn=libro.ISBN) }}"
+                                   class="btn btn-sm btn-outline-danger">🗑</a>
                             </td>
                         </tr>
                     {% endfor %}

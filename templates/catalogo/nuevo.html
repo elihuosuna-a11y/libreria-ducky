@@ -1,0 +1,145 @@
+{% include 'partials/header.html' %}
+
+<header class="cat-header">
+    <div class="cat-header-bar">
+        <div class="cat-search-pill">
+            <span>☰</span>
+            <span class="text-muted">Consulta libros</span>
+        </div>
+        <a href="{{ url_for('auth.cerrar_sesion') }}" class="btn-cerrar" title="Salir del sistema (T15)">×</a>
+    </div>
+</header>
+
+<main class="cat-main container py-4">
+
+    <div class="card shadow-sm p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h2 fw-bold mb-0">Nuevo Libro</h1>
+            <!-- T14 (variante "Volver" sin guardar) -->
+            <a href="{{ url_for('catalogo.mostrar_catalogo') }}" class="btn btn-primary">← Volver</a>
+        </div>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('catalogo.procesar_nuevo') }}" method="POST">
+
+            <!-- ISBN -->
+            <div class="mb-3">
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="text"
+                       class="form-control {% if campos_error and 'isbn' in campos_error %}is-invalid{% endif %}"
+                       id="isbn" name="isbn"
+                       value="{{ datos.isbn or '' }}"
+                       placeholder="Ingresa la informacion">
+            </div>
+
+            <!-- Titulo -->
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título del libro</label>
+                <input type="text"
+                       class="form-control {% if campos_error and 'titulo' in campos_error %}is-invalid{% endif %}"
+                       id="titulo" name="titulo"
+                       value="{{ datos.titulo or '' }}"
+                       placeholder="Ingresa la informacion">
+            </div>
+
+            <!-- Autor -->
+            <div class="mb-3">
+                <label for="autor" class="form-label">Autor</label>
+                <input type="text"
+                       class="form-control {% if campos_error and 'autor' in campos_error %}is-invalid{% endif %}"
+                       id="autor" name="autor"
+                       value="{{ datos.autor or '' }}"
+                       placeholder="Ingresa la informacion">
+            </div>
+
+            <!-- Editorial -->
+            <div class="mb-3">
+                <label for="editorial" class="form-label">Editorial</label>
+                <input type="text"
+                       class="form-control {% if campos_error and 'editorial' in campos_error %}is-invalid{% endif %}"
+                       id="editorial" name="editorial"
+                       value="{{ datos.editorial or '' }}"
+                       placeholder="Ingresa la informacion">
+            </div>
+
+            <!-- Sinopsis -->
+            <div class="mb-3">
+                <label for="sinopsis" class="form-label">Sinopsis</label>
+                <textarea class="form-control {% if campos_error and 'sinopsis' in campos_error %}is-invalid{% endif %}"
+                          id="sinopsis" name="sinopsis" rows="3"
+                          placeholder="Ingresa la informacion">{{ datos.sinopsis or '' }}</textarea>
+            </div>
+
+            <!-- Año, paginas, precio (en fila) -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="ano_publicacion" class="form-label">Año de publicación</label>
+                    <input type="number"
+                           class="form-control {% if campos_error and 'ano_publicacion' in campos_error %}is-invalid{% endif %}"
+                           id="ano_publicacion" name="ano_publicacion"
+                           value="{{ datos.ano_publicacion or '' }}"
+                           placeholder="Ingresa la informacion">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="numero_paginas" class="form-label">Número de páginas</label>
+                    <input type="number"
+                           class="form-control {% if campos_error and 'numero_paginas' in campos_error %}is-invalid{% endif %}"
+                           id="numero_paginas" name="numero_paginas"
+                           value="{{ datos.numero_paginas or '' }}"
+                           placeholder="Ingresa la informacion">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" step="0.01"
+                           class="form-control {% if campos_error and 'precio' in campos_error %}is-invalid{% endif %}"
+                           id="precio" name="precio"
+                           value="{{ datos.precio or '' }}"
+                           placeholder="Ingresa la informacion">
+                </div>
+            </div>
+
+            <!-- Ubicacion -->
+            <div class="mb-3">
+                <label for="ubicacion" class="form-label">Ubicación en biblioteca</label>
+                <input type="text"
+                       class="form-control {% if campos_error and 'ubicacion' in campos_error %}is-invalid{% endif %}"
+                       id="ubicacion" name="ubicacion"
+                       value="{{ datos.ubicacion or '' }}"
+                       placeholder="Ingresa la informacion">
+            </div>
+
+            <!-- Numero de copias -->
+            <div class="mb-3">
+                <label for="numero_copias" class="form-label">Número de copias</label>
+                <input type="number"
+                       class="form-control {% if campos_error and 'numero_copias' in campos_error %}is-invalid{% endif %}"
+                       id="numero_copias" name="numero_copias"
+                       value="{{ datos.numero_copias or '' }}"
+                       placeholder="Ingresa la informacion">
+            </div>
+
+            <!-- Categoria -->
+            <div class="mb-4">
+                <label for="categoria" class="form-label">Categoría</label>
+                <input type="text"
+                       class="form-control {% if campos_error and 'categoria' in campos_error %}is-invalid{% endif %}"
+                       id="categoria" name="categoria"
+                       value="{{ datos.categoria or '' }}"
+                       placeholder="Ingresa la informacion">
+            </div>
+
+            <!-- T14: Alta exitosa -->
+            <button type="submit" class="btn btn-primary">Guardar libro</button>
+
+        </form>
+
+    </div>
+
+</main>
+
+{% include 'partials/footer.html' %}
+

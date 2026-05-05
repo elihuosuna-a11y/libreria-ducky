@@ -1,0 +1,64 @@
+{% include 'partials/header.html' %}
+
+<header class="cat-header">
+    <div class="cat-header-bar">
+        <div class="cat-search-pill">
+            <span>☰</span>
+            <span class="text-muted">Consulta libros</span>
+        </div>
+    </div>
+</header>
+
+<main class="cat-main container py-4">
+
+    <!-- Tarjeta principal con la informacion del libro -->
+    <div class="card shadow-sm p-4">
+
+        <!-- Encabezado: titulo, autor, año + boton Volver + categoria -->
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h1 class="h2 fw-bold mb-1">{{ libro.Titulo }}</h1>
+                <p class="text-warning fw-semibold mb-0">{{ libro.Autor }}</p>
+                <p class="text-muted small mb-0">{{ libro.AnoPublicacion or '—' }}</p>
+            </div>
+            <div class="text-end">
+                <!-- T16: Volver desde E4 -> E2 -->
+                <a href="{{ url_for('catalogo.mostrar_catalogo') }}"
+                   class="btn btn-primary mb-2">← Volver</a>
+                <br>
+                <span class="badge-genero">{{ libro.Categoria or '—' }}</span>
+                <p class="text-muted small mt-1 mb-0">{{ libro.Editorial or '' }}</p>
+            </div>
+        </div>
+
+        <hr class="border-warning">
+
+        <!-- Sinopsis -->
+        <h2 class="h5 fw-bold">Sinopsis</h2>
+        <p class="text-muted">{{ libro.Sinopsis or 'Sin sinopsis disponible.' }}</p>
+
+        <hr class="border-warning">
+
+        <!-- Informacion adicional -->
+        <h2 class="h5 fw-bold">Información adicional</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-1"><strong>Editorial:</strong> {{ libro.Editorial or '—' }}</p>
+                <p class="mb-1"><strong>Número de Copias:</strong> {{ libro.NumeroCopias }}</p>
+                <p class="mb-1"><strong>Número de páginas:</strong> {{ libro.NumeroPaginas or '—' }}</p>
+                <p class="mb-1"><strong>Precio:</strong> ${{ '%.2f'|format(libro.Precio) if libro.Precio else '—' }}</p>
+            </div>
+            <div class="col-md-6">
+                <p class="mb-1"><strong>ISBN:</strong> {{ libro.ISBN }}</p>
+                <p class="mb-1"><strong>Categoría:</strong> {{ libro.Categoria or '—' }}</p>
+                <p class="mb-1"><strong>Estado:</strong> {{ libro.Estado }}</p>
+                <p class="mb-1"><strong>Ubicación en biblioteca:</strong></p>
+                <p class="text-muted small">{{ libro.Ubicacion or '—' }}</p>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+{% include 'partials/footer.html' %}
